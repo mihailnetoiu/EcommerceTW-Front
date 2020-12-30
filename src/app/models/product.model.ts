@@ -1,7 +1,9 @@
+import {CategoryModel} from './category.model';
+
 export interface ProductModelServer {
   id: number;
   name: string;
-  category: string;
+  category: CategoryModel;
   description: string;
   price: number;
   quantity: number;

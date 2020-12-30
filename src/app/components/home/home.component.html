@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="product-body">
-                <p class="product-category">p.category</p>
+                <p class="product-category">{{p.category.name}}</p>
                 <h3 class="product-name">{{p.name | titlecase}}</h3>
                 <h4 class="product-price">{{p.price - p.price * p.sale/100 | currency: 'EUR'}}
                   <del *ngIf="p.sale" class="product-old-price">{{p.price | currency : 'EUR'}}</del>
