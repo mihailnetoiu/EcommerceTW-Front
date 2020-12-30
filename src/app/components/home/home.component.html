@@ -90,9 +90,12 @@
               <div class="product-body">
                 <p class="product-category">p.category</p>
                 <h3 class="product-name">{{p.name | titlecase}}</h3>
-                <h4 class="product-price">{{p.price}}
-                  <del *ngIf="p.sale" class="product-old-price">$990.00</del>
+                <h4 class="product-price">{{p.price - p.price * p.sale/100 | currency: 'EUR'}}
+                  <del *ngIf="p.sale" class="product-old-price">{{p.price | currency : 'EUR'}}</del>
                 </h4>
+                <div class="card-body">
+                  <h6>{{p.description.substr(0, 25)}} ...</h6>
+                </div>
                 <div class="product-rating">
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
@@ -107,7 +110,10 @@
                 </div>
               </div>
               <div class="add-to-cart">
-                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                <button class="add-to-cart-btn"
+                [class.disabled]="p.quantity < 1">
+                  <i *ngIf="!p.quantity" class="fa fa-times-circle"></i>
+                  <i *ngIf="p.quantity" class="fa fa-shopping-cart"></i>{{p.quantity < 1 ? "Insufficient stocks" : "Add to cart!"}}</button>
               </div>
             </div>
           </div>
