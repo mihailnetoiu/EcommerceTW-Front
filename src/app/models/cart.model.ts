@@ -19,3 +19,15 @@ export interface CartModelReference {
     }
   ];
 }
+
+export class InternalCardModel {
+  userId: number;
+  quantity: number;
+  productId: number;
+
+  constructor(userId, quantity, productId) {
+    this.userId = userId;
+    this.quantity = quantity;
+    this.productId = productId;
+  }
+}

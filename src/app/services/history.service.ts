@@ -6,7 +6,7 @@ import {CartModelServer} from '../models/cart.model';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+export class HistoryService {
 
   private products: any[];
   private SERVER_URL = environment.SERVER_URL;
@@ -14,7 +14,7 @@ export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getSingleOrder(userId: number) {
+  getUserHistory(userId: number) {
     return this.http.get<CartModelServer>(this.SERVER_URL + '/cart/' + userId).toPromise();
   }
 
