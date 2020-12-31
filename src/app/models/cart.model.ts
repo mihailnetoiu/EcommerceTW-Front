@@ -20,7 +20,7 @@ export interface CartModelReference {
   ];
 }
 
-export class InternalCardModel {
+export class InternalCartModel {
   userId: number;
   quantity: number;
   productId: number;

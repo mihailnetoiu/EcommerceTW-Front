@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {ProductService} from './product.service';
 import {HistoryService} from './history.service';
 import {environment} from '../../environments/environment';
-import {CartModelReference, CartModelServer, InternalCardModel} from '../models/cart.model';
+import {CartModelReference, CartModelServer, InternalCartModel} from '../models/cart.model';
 import {BehaviorSubject} from 'rxjs';
 import {NavigationExtras, Router} from '@angular/router';
 import {ProductModelServer} from '../models/product.model';
@@ -181,7 +181,7 @@ export class CartService {
     // history in db
     let internalHistory;
     for (const item of this.cartDataClient.prodData) {
-      internalHistory = new InternalCardModel(userId, item.inCart, item.id);
+      internalHistory = new InternalCartModel(userId, item.inCart, item.id);
       await this.http.post(`${this.SERVER_URL}/history/save`, internalHistory);
     }
 

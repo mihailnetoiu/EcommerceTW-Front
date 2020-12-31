@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-5">
   <div class="text-center my-5" *ngIf="!cartData.data[0].quantity">
     <h4>Your cart is empty!</h4>
     <button class="btn btn-primary btn-lg mt-3" routerLink="/">Return to shopping!</button>
@@ -6,7 +6,7 @@
 
   <ng-container *ngIf="cartData.data[0].quantity">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-12">
         <table class="table">
           <thead class="table-danger">
           <tr class="text-center">
@@ -21,7 +21,7 @@
           <tr *ngFor="let c of cartData.data; let i=index">
             <td class="d-flex align-items-center justify-content-around">
               <img src="{{c.product.photo}}" alt="{{c.product.name}}" height="60" class="order-1">
-              <span class="text-dark" style="cursor: pointer"><i class="fa fa-trash" (click)="cartService.deleteProductFromCart(i)"></i></span>
+              <span class="text-dark mr-md-2" style="cursor: pointer"><i class="fa fa-trash" (click)="cartService.deleteProductFromCart(i)"></i></span>
             </td>
             <td>
               <p>{{c.product.name}}</p>
@@ -59,6 +59,12 @@
 
           </tbody>
         </table>
+      </div>
+      <div class="col-md-12 d-flex mb-5">
+        <div class="d-flex justify-content-between flex-sm-column flex-md-row w-100">
+          <a routerLink="/" class="btn btn-warning btn-sm order-0 w-50">Go to shop</a>
+          <a routerLink="/checkout" class="btn btn-primary btn-sm order-1 w-50">Checkout</a>
+        </div>
       </div>
     </div>
 
