@@ -66,25 +66,29 @@
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Your Cart</span>
-                <div class="qty">0</div>
+                <div class="qty">{{cartData.data[0].quantity ? cartData.data.length : 0}}</div>
               </a>
               <div class="cart-dropdown">
-                <div class="cart-list">
-                  <div class="product-widget">
+                <div class="cart-list" *ngIf="cartData.data[0].quantity">
+                  <div class="product-widget" *ngFor="let item of cartData.data; let i=index">
                     <div class="product-img">
-                      <img src="./img/product01.png" alt="">
+                      <img src="{{item.product?.photo}}" alt="{{item.product.name}}" width="20px">
                     </div>
                     <div class="product-body">
-                      <h3 class="product-name"><a href="#">dummy</a></h3>
-                      <h4 class="product-price"><span class="qty">1x</span>{{0 | currency : 'EUR'}}</h4>
+                      <h3 class="product-name"><a href="#">{{item.product.name}}</a></h3>
+                      <h4 class="product-price">
+                        <span class="qty">{{item.quantity}} x
+                        </span>
+                        {{cartService.calculateSalePrice(item.product?.price, item.product?.sale) | currency : 'EUR'}}
+                      </h4>
                     </div>
-                    <button class="delete"><i class="fa fa-close"></i></button>
+                    <button class="delete" (click)="cartService.deleteProductFromCart(i)"><i class="fa fa-close"></i></button>
                   </div>
 
                 </div>
                 <div class="cart-summary">
-                  <small>3 Item(s) selected</small>
-                  <h5>SUBTOTAL: {{0 | currency : 'EUR'}}</h5>
+                  <small>{{cartData.data[0].quantity != 0 ? cartData.data.length : 0}} item(s) in cart</small>
+                  <h5>TOTAL: {{cartTotal | currency : 'EUR'}}</h5>
                 </div>
                 <div class="cart-btns">
                   <a routerLink="/cart">View Cart</a>

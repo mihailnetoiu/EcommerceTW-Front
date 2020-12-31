@@ -76,6 +76,7 @@ export class CartService {
         this.cartDataServer.total +=
           this.calculateSalePrice(
             this.cartDataServer.data[0].product.price, this.cartDataServer.data[0].product.sale) * this.cartDataServer.data[0].quantity;
+        this.cartTotal$.next(this.cartDataServer.total);
 
         this.cartDataClient.prodData[0].inCart = this.cartDataServer.data[0].quantity;
         this.cartDataClient.prodData[0].id = prod.id;
@@ -143,6 +144,7 @@ export class CartService {
     if (window.confirm('Are you sure you want to remove the item?')) {
       this.cartDataServer.data.splice(index, 1);
       this.cartDataClient.prodData.splice(index, 1);
+      this.calculateTotal();
       this.cartDataClient.total = this.cartDataServer.total;
       if (this.cartDataClient.total === 0) {
         this.cartDataClient = {
@@ -247,7 +249,7 @@ export class CartService {
     );
   }
 
-  private calculateSalePrice(price: number, sale: number) {
+  calculateSalePrice(price: number, sale: number) {
     return price - (price * sale / 100);
   }
 }
