@@ -43,13 +43,11 @@ export class CartService {
               private router: Router,
               private toast: ToastrService,
               private spinner: NgxSpinnerService) {
-
-    this.cartTotal$.next(this.cartDataServer.total);
-    this.cartData$.next(this.cartDataServer);
-
     const info = JSON.parse(localStorage.getItem('cart'));
     if (info && info.prodData[0].inCart) {
+      this.cartTotal$.next(info.total);
       this.cartDataClient = info;
+      this.cartDataServer.total = info.total;
       this.cartDataClient.prodData.forEach(p => {
         this.productService.getSingleProduct(p.id).subscribe((actualProduct: ProductModelServer) => {
           if (this.cartDataServer.data[0].quantity === 0) {
@@ -128,16 +126,16 @@ export class CartService {
         ++data.quantity;
       }
       this.cartDataClient.prodData[index].inCart = data.quantity;
-      this.updateLocalStorage();
     } else {
       data.quantity--;
       if (data.quantity < 1) {
         this.cartData$.next({...this.cartDataServer});
       } else {
         this.cartDataClient.prodData[index].inCart = data.quantity;
-        this.updateLocalStorage();
       }
     }
+    this.calculateTotal();
+    this.updateLocalStorage();
   }
 
   deleteProductFromCart(index: number) {
@@ -252,4 +250,15 @@ export class CartService {
   calculateSalePrice(price: number, sale: number) {
     return price - (price * sale / 100);
   }
+
+  calculateSubtotal(index: number) {
+    let subtotal = 0;
+    const quantity = this.cartDataServer.data[index].quantity;
+    const price = this.cartDataServer.data[index].product.price;
+    const sale = this.cartDataServer.data[index].product.sale;
+    subtotal += this.calculateSalePrice(price, sale) * quantity;
+    return subtotal;
+  }
+
+
 }
