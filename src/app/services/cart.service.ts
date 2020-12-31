@@ -7,6 +7,8 @@ import {CartModelReference, CartModelServer, InternalCardModel} from '../models/
 import {BehaviorSubject} from 'rxjs';
 import {NavigationExtras, Router} from '@angular/router';
 import {ProductModelServer} from '../models/product.model';
+import {ToastrService} from 'ngx-toastr';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +40,9 @@ export class CartService {
   constructor(private http: HttpClient,
               private productService: ProductService,
               private historyService: HistoryService,
-              private router: Router) {
+              private router: Router,
+              private toast: ToastrService,
+              private spinner: NgxSpinnerService) {
 
     this.cartTotal$.next(this.cartDataServer.total);
     this.cartData$.next(this.cartDataServer);
@@ -68,9 +72,15 @@ export class CartService {
       if (!this.cartDataServer.data[0].product) {
         this.cartDataServer.data[0].product = prod;
         this.cartDataServer.data[0].quantity = quantity !== undefined ? quantity : 1;
+
+        this.cartDataServer.total +=
+          this.calculateSalePrice(
+            this.cartDataServer.data[0].product.price, this.cartDataServer.data[0].product.sale) * this.cartDataServer.data[0].quantity;
+
         this.cartDataClient.prodData[0].inCart = this.cartDataServer.data[0].quantity;
         this.cartDataClient.prodData[0].id = prod.id;
         this.updateLocalStorage();
+        this.showSuccessToaster(`${prod.name} added to the cart`, 'Product Added');
       } else {
         const index = this.cartDataServer.data.findIndex(p => p.product.id === prod.id);
         if (index !== -1) {
@@ -81,6 +91,10 @@ export class CartService {
               this.cartDataServer.data[index].quantity < prod.quantity ? this.cartDataServer.data[index].quantity + 1 : prod.quantity;
           }
           this.cartDataClient.prodData[index].inCart = this.cartDataServer.data[index].quantity;
+
+          this.calculateTotal();
+          this.updateLocalStorage();
+          this.showInfoToaster(`${prod.name} quantity updated in the cart`, 'Product Updated');
         } else {
           this.cartDataServer.data.push({
             quantity: 1,
@@ -92,6 +106,8 @@ export class CartService {
             id: prod.id
           });
 
+          this.calculateTotal();
+          this.showSuccessToaster(`${prod.name} added to the cart`, 'Product Added');
           this.updateLocalStorage();
         }
       }
@@ -105,9 +121,11 @@ export class CartService {
   }
 
   updateCartItems(index: number, increase: boolean) {
-    let data = this.cartDataServer.data[index];
+    const data = this.cartDataServer.data[index];
     if (increase) {
-      data.quantity < data.product.quantity ? data.quantity++ : data.product.quantity;
+      if (data.quantity < data.product.quantity) {
+        ++data.quantity;
+      }
       this.cartDataClient.prodData[index].inCart = data.quantity;
       this.updateLocalStorage();
     } else {
@@ -148,8 +166,9 @@ export class CartService {
     this.cartDataServer.data.forEach(p => {
       const {quantity} = p;
       const {price} = p.product;
+      const {sale} = p.product;
 
-      total += quantity * price;
+      total += this.calculateSalePrice(price, sale) * quantity;
     });
     this.cartDataServer.total = total;
     this.cartTotal$.next(this.cartDataServer.total);
@@ -158,18 +177,23 @@ export class CartService {
   async checkoutFromCart(userId: number) {
     this.resetServerData();
     this.cartData$.next({...this.cartDataServer});
+
     // history in db
     let internalHistory;
     for (const item of this.cartDataClient.prodData) {
       internalHistory = new InternalCardModel(userId, item.inCart, item.id);
       await this.http.post(`${this.SERVER_URL}/history/save`, internalHistory);
     }
+
     const navigationExtras: NavigationExtras = {
       state: {
         message: 'Thanks for you purchase!',
         total: this.cartDataClient.total,
       }
     };
+
+    this.spinner.hide();
+
     this.router.navigate(['/thankyou'], navigationExtras).then(p => {
       this.resetClientData();
       this.cartTotal$.next(0);
@@ -195,5 +219,35 @@ export class CartService {
         product: undefined
       }]
     };
+  }
+
+  private showSuccessToaster(message, title) {
+    this.toast.success(
+      message,
+      title,
+      {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+        positionClass: 'toast-bottom-left'
+      }
+    );
+  }
+
+  private showInfoToaster(message, title) {
+    this.toast.info(
+      message,
+      title,
+      {
+        timeOut: 2000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+        positionClass: 'toast-bottom-left'
+      }
+    );
+  }
+
+  private calculateSalePrice(price: number, sale: number) {
+    return price - (price * sale / 100);
   }
 }

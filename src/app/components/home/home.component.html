@@ -111,7 +111,8 @@
               </div>
               <div class="add-to-cart">
                 <button class="add-to-cart-btn"
-                [class.disabled]="p.quantity < 1">
+                [class.disabled]="p.quantity < 1"
+                (click)="addToCart(p.id)">
                   <i *ngIf="!p.quantity" class="fa fa-times-circle"></i>
                   <i *ngIf="p.quantity" class="fa fa-shopping-cart"></i>{{p.quantity < 1 ? "Insufficient stocks" : "Add to cart!"}}</button>
               </div>
