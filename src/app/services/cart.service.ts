@@ -174,7 +174,7 @@ export class CartService {
     this.cartTotal$.next(this.cartDataServer.total);
   }
 
-  async checkoutFromCart(userId: number) {
+  checkoutFromCart(userId: number) {
     this.resetServerData();
     this.cartData$.next({...this.cartDataServer});
 
@@ -182,17 +182,14 @@ export class CartService {
     let internalHistory;
     for (const item of this.cartDataClient.prodData) {
       internalHistory = new InternalCartModel(userId, item.inCart, item.id);
-      await this.http.post(`${this.SERVER_URL}/history/save`, internalHistory);
+      this.http.post(`${this.SERVER_URL}/history/save`, internalHistory).toPromise().then();
     }
-
     const navigationExtras: NavigationExtras = {
       state: {
         message: 'Thanks for you purchase!',
-        total: this.cartDataClient.total,
+        total: this.cartDataClient.total
       }
     };
-
-    this.spinner.hide();
 
     this.router.navigate(['/thankyou'], navigationExtras).then(p => {
       this.resetClientData();

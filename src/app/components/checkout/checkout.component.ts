@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CartService} from '../../services/cart.service';
 import {HistoryService} from '../../services/history.service';
 import {Router} from '@angular/router';
@@ -19,16 +19,24 @@ export class CheckoutComponent implements OnInit {
     public cartService: CartService,
     private historyService: HistoryService,
     private router: Router,
-    private spinner: NgxSpinnerService) {}
+    private spinner: NgxSpinnerService) {
+  }
 
   ngOnInit(): void {
     this.cartService.cartData$.subscribe(data => this.cartData = data);
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total);
   }
 
+  private timeoutPromise(seconds: number) {
+    return new Promise<any>( resolve => {
+      setTimeout(resolve, seconds * 1000);
+    });
+  }
+
   onCheckout() {
     this.spinner.show();
+    this.timeoutPromise(5).then(() => this.spinner.hide());
     // TODO: replace hardcoded user id with one from login
-    this.cartService.checkoutFromCart(1).then();
+    this.cartService.checkoutFromCart(1);
   }
 }

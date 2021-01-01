@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {HistoryService} from '../../services/history.service';
 
 @Component({
   selector: 'app-thankyou',
@@ -6,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thankyou.component.scss']
 })
 export class ThankyouComponent implements OnInit {
+  message: string;
+  cartTotal: number;
 
-  constructor() { }
+  constructor(private router: Router,
+              private historyService: HistoryService) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation.extras.state as {
+      message: string;
+      total: number;
+    };
+    this.message = state.message;
+    this.cartTotal = state.total;
+  }
 
   ngOnInit(): void {
   }

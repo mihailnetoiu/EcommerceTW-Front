@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {CartModelServer} from '../models/cart.model';
+import {HistoryModel} from '../models/history.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class HistoryService {
   }
 
   getUserHistory(userId: number) {
-    return this.http.get<CartModelServer>(this.SERVER_URL + '/cart/' + userId).toPromise();
+    return this.http.get<HistoryModel>(this.SERVER_URL + '/history/' + userId).toPromise();
   }
 
 }
