@@ -8,7 +8,6 @@ import {BehaviorSubject} from 'rxjs';
 import {NavigationExtras, Router} from '@angular/router';
 import {ProductModelServer} from '../models/product.model';
 import {ToastrService} from 'ngx-toastr';
-import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -36,13 +35,11 @@ export class CartService {
   cartTotal$ = new BehaviorSubject<number>(0);
   cartData$ = new BehaviorSubject<CartModelServer>(this.cartDataServer);
 
-
   constructor(private http: HttpClient,
               private productService: ProductService,
               private historyService: HistoryService,
               private router: Router,
-              private toast: ToastrService,
-              private spinner: NgxSpinnerService) {
+              private toast: ToastrService) {
     const info = JSON.parse(localStorage.getItem('cart'));
     if (info && info.prodData[0].inCart) {
       this.cartTotal$.next(info.total);
@@ -256,6 +253,4 @@ export class CartService {
     subtotal += this.calculateSalePrice(price, sale) * quantity;
     return subtotal;
   }
-
-
 }
