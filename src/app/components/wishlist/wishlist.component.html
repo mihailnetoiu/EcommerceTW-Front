@@ -1,0 +1,49 @@
+<div class="container my-5">
+  <div class="text-center my-5" *ngIf="!wishlistService.wishlist.wishlistTotal">
+    <h4>Your cart is empty!</h4>
+    <button class="btn btn-primary btn-lg mt-3" routerLink="/">Return to shopping!</button>
+  </div>
+
+  <ng-container *ngIf="wishlistService.wishlist.wishlistTotal">
+    <div class="row">
+      <div class="col-md-10 align-items-center">
+        <table class="table">
+          <thead class="table-dark">
+          <tr class="text-center">
+            <th>Image</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Add to cart</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let w of wishlistService.wishlist.data; let i=index">
+            <td class="d-flex text-center justify-content-around">
+              <img src="{{w.photo}}" alt="{{w.name}}" height="60" class="order-1">
+              <span class="text-dark" style="cursor: pointer"><i class="fa fa-trash" (click)="wishlistService.deleteProductFromWishlist(w.id)"></i></span>
+            </td>
+            <td class="text-center">
+              <p>{{w.name}}</p>
+            </td>
+            <td class="text-center">
+              <p>{{w.price | currency: 'EUR'}}</p>
+            </td>
+            <td class="text-center">
+              <p>{{w.quantity !==0 ? 'In stock' : 'Not available'}}</p>
+            </td>
+            <td class="text-center">
+              <button *ngIf="w.quantity" (click)="cartService.addProductToCart(w.id)" type="button" class="btn btn-success"><i class="fa fa-check"></i></button>
+              <button *ngIf="!w.quantity" type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-10 d-flex mb-5">
+        <div class="d-flex justify-content-between flex-sm-column flex-md-row w-100">
+          <a routerLink="/" class="btn btn-outline-dark btn-danger btn-sm order-0 w-100">Go to shop</a></div>
+      </div>
+    </div>
+  </ng-container>
+</div>

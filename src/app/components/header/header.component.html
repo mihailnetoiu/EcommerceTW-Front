@@ -55,30 +55,31 @@
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <i class="fa fa-heart-o"></i>
                 <span>Your Wishlist</span>
-                <div class="qty">{{wishlistService.wishlist.productNumber}}</div>
+                <div class="qty">{{wishlistService.wishlist.wishlistTotal}}</div>
               </a>
               <div class="cart-dropdown">
-                <div class="cart-list" *ngIf="wishlistService.wishlist.productNumber">
+                <div class="cart-list" *ngIf="wishlistService.wishlist.wishlistTotal">
                   <div class="product-widget" *ngFor="let item of wishlistService.wishlist.data; let i=index">
                     <div class="product-img">
-                      <img src="{{item.product?.photo}}" alt="{{item.product.name}}" width="20px">
+                      <img src="{{item?.photo}}" alt="{{item.name}}" width="20px">
                     </div>
                     <div class="product-body">
-                      <h3 class="product-name"><a href="#">{{item.product.name}}</a></h3>
+                      <h3 class="product-name"><a href="#">{{item.name}}</a></h3>
                       <h4 class="product-price">
-                        {{cartService.calculateSalePrice(item.product?.price, item.product?.sale) | currency : 'EUR'}}
+                        {{cartService.calculateSalePrice(item?.price, item?.sale) | currency : 'EUR'}}
                       </h4>
                     </div>
-                    <button class="delete" (click)="cartService.deleteProductFromCart(i)"><i class="fa fa-close"></i></button>
+                    <button class="delete" (click)="wishlistService.deleteProductFromWishlist(item.id)"><i
+                      class="fa fa-close"></i></button>
                   </div>
 
                 </div>
                 <div class="cart-summary">
-                  <h5>{{wishlistService.wishlist.productNumber}} item(s) in wishlist</h5>
+                  <h5>{{wishlistService.wishlist.wishlistTotal}} item(s) in wishlist</h5>
                 </div>
                 <div class="cart-btns">
-                  <a routerLink="/cart">View Wishlist</a>
-                  <a href="#">Clear wishlist</a>
+                  <a routerLink="/wishlist">View Wishlist</a>
+                  <a href="#" (click)="wishlistService.deleteAllProducts()">Clear wishlist</a>
                 </div>
               </div>
             </div>
@@ -105,7 +106,8 @@
                         {{cartService.calculateSalePrice(item.product?.price, item.product?.sale) | currency : 'EUR'}}
                       </h4>
                     </div>
-                    <button class="delete" (click)="cartService.deleteProductFromCart(i)"><i class="fa fa-close"></i></button>
+                    <button class="delete" (click)="cartService.deleteProductFromCart(i)"><i class="fa fa-close"></i>
+                    </button>
                   </div>
 
                 </div>
@@ -115,7 +117,7 @@
                 </div>
                 <div class="cart-btns">
                   <a routerLink="/cart">View Cart</a>
-                  <a routerLink="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                  <a routerLink="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             </div>
