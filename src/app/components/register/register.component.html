@@ -1,0 +1,36 @@
+
+<div class="registration-form-flex">
+  <mat-card align="center" style="height: 440px; width: 300px; text-align: center">
+    <mat-card-title>
+      <h1 style="color: lightsteelblue">Register</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <br>
+      <mat-form-field color="accent" style="font-size: 16px">
+        <input matInput placeholder="Username" [(ngModel)]="username"/>
+      </mat-form-field>
+      <br/>
+      <mat-form-field color="accent" style="font-size: 16px">
+        <input matInput placeholder="Full name" [(ngModel)]="name"/>
+      </mat-form-field>
+    <br/>
+      <mat-form-field color="accent" style="font-size: 16px">
+        <input matInput type="password" placeholder="Password" [(ngModel)]="password"/>
+      </mat-form-field>
+      <br/>
+      <mat-form-field color="accent" style="font-size: 16px">
+      <input matInput type="password" placeholder="Confirm password" [(ngModel)]="retypedPassword"/>
+    </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-flex-container" *ngIf="validRegistration()">
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button mat-raised-button style="color: black; background-color: lightsteelblue; font-size: 17px" (click)="register()">Register</button>
+      </div>
+      <div class="button-flex-container" *ngIf="!validRegistration()">
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button mat-raised-button disabled style="font-size: 17px">Register</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -116,11 +116,9 @@
 	});
 
 	function updatePriceSlider(elem , value) {
-		if ( elem.hasClass('price-min') ) {
-			console.log('min')
+		if (elem.hasClass('price-min') ) {
 			priceSlider.noUiSlider.set([value, null]);
-		} else if ( elem.hasClass('price-max')) {
-			console.log('max')
+		} else if (elem.hasClass('price-max')) {
 			priceSlider.noUiSlider.set([null, value]);
 		}
 	}

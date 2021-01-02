@@ -23,10 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
-      (response: ProductModelServer[]) => {
-        console.log(response);
-        this.products = response;
-      }
+      (response: ProductModelServer[]) => this.products = response
     );
   }
 
