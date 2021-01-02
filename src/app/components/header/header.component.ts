@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartModelServer} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
+import {WishlistService} from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
   cartData: CartModelServer;
   cartTotal: number;
 
-  constructor(public cartService: CartService) { }
+  constructor(public cartService: CartService,
+              public wishlistService: WishlistService) { }
 
   ngOnInit(): void {
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total);

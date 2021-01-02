@@ -51,12 +51,36 @@
         <div class="col-md-3 clearfix">
           <div class="header-ctn">
             <!-- Wishlist -->
-            <div>
-              <a href="#">
+            <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <i class="fa fa-heart-o"></i>
                 <span>Your Wishlist</span>
-                <div class="qty">0</div>
+                <div class="qty">{{wishlistService.wishlist.productNumber}}</div>
               </a>
+              <div class="cart-dropdown">
+                <div class="cart-list" *ngIf="wishlistService.wishlist.productNumber">
+                  <div class="product-widget" *ngFor="let item of wishlistService.wishlist.data; let i=index">
+                    <div class="product-img">
+                      <img src="{{item.product?.photo}}" alt="{{item.product.name}}" width="20px">
+                    </div>
+                    <div class="product-body">
+                      <h3 class="product-name"><a href="#">{{item.product.name}}</a></h3>
+                      <h4 class="product-price">
+                        {{cartService.calculateSalePrice(item.product?.price, item.product?.sale) | currency : 'EUR'}}
+                      </h4>
+                    </div>
+                    <button class="delete" (click)="cartService.deleteProductFromCart(i)"><i class="fa fa-close"></i></button>
+                  </div>
+
+                </div>
+                <div class="cart-summary">
+                  <h5>{{wishlistService.wishlist.productNumber}} item(s) in wishlist</h5>
+                </div>
+                <div class="cart-btns">
+                  <a routerLink="/cart">View Wishlist</a>
+                  <a href="#">Clear wishlist</a>
+                </div>
+              </div>
             </div>
             <!-- /Wishlist -->
 

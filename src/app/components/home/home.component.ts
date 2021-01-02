@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {Router} from '@angular/router';
 import {ProductModelServer} from '../../models/product.model';
 import {CartService} from '../../services/cart.service';
+import {WishlistService} from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -15,8 +16,10 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    public wishlistService: WishlistService,
     private router: Router,
-    private cartService: CartService) { }
+    private cartService: CartService) {
+  }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
@@ -33,5 +36,9 @@ export class HomeComponent implements OnInit {
 
   addToCart(id: number) {
     this.cartService.addProductToCart(id);
+  }
+
+  addToWishlist(id: number) {
+    this.wishlistService.addToWishlist(id);
   }
 }
