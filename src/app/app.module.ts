@@ -18,6 +18,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { FilterComponent } from './components/filter/filter.component';
 import {FormsModule} from '@angular/forms';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
     ThankyouComponent,
     WishlistComponent,
     FilterComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ContactComponent
   ],
     imports: [
         BrowserModule,
