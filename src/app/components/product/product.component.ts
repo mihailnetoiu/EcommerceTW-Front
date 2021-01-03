@@ -1,9 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {ProductModelServer} from '../../models/product.model';
+import {WishlistService} from '../../services/wishlist.service';
 
 declare let $: any;
 
@@ -18,8 +19,10 @@ export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild('quantity') quantityInput;
 
   constructor(private productService: ProductService,
+              private wishlistService: WishlistService,
               private cartService: CartService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -34,6 +37,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
         this.product = prod;
       });
     });
+    document.getElementById('defaultOpen').click();
   }
 
   ngAfterViewInit(): void {
@@ -87,5 +91,68 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   addToCart(id: number) {
     this.cartService.addProductToCart(id, this.quantityInput.nativeElement.value);
+  }
+
+  addToWishlist(id: number) {
+    this.wishlistService.addToWishlist(id);
+  }
+
+  filterCategory(categ: string) {
+    const category = categ;
+    this.router.navigate(['/filter'], {
+      state: {
+        category,
+        productName: undefined
+      }
+    });
+    window.scrollTo(0, 0);
+  }
+
+  selectProductTab(productTab) {
+    let i;
+    let tabcontent;
+    let tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = 'none';
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(productTab).style.display = 'block';
+  }
+
+  calculateAvgRating(product: ProductModelServer) {
+    let averageRating = 0;
+    const numOfReviews = product.reviewList.length;
+
+    for (const reviewItem of product.reviewList) {
+      averageRating += reviewItem.review;
+    }
+
+    // tslint:disable-next-line:radix
+    return numOfReviews ? parseInt((averageRating / numOfReviews).toFixed()) : 0;
+  }
+
+  ratingsFor(product: ProductModelServer, stars: number): number {
+    let rating = 0;
+
+    if (stars > 0 && stars < 6) {
+      for (const reviewItem of product.reviewList) {
+        if (reviewItem.review.stars === stars) {
+          ++rating;
+        }
+      }
+    }
+
+    // tslint:disable-next-line:radix
+    return parseInt(rating.toFixed());
   }
 }

@@ -10,5 +10,5 @@ export interface ProductModelServer {
   photo: string;
   stars: number;
   sale: number;
-  reviews: any[];
+  reviewList: any[];
 }
