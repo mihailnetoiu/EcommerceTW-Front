@@ -17,6 +17,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { FilterComponent } from './components/filter/filter.component';
 import {FormsModule} from '@angular/forms';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {FormsModule} from '@angular/forms';
     ProductComponent,
     ThankyouComponent,
     WishlistComponent,
-    FilterComponent
+    FilterComponent,
+    CategoriesComponent
   ],
     imports: [
         BrowserModule,

@@ -7,6 +7,7 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {ThankyouComponent} from './components/thankyou/thankyou.component';
 import {WishlistComponent} from './components/wishlist/wishlist.component';
 import {FilterComponent} from './components/filter/filter.component';
+import {CategoriesComponent} from './components/categories/categories.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'checkout', component: CheckoutComponent},
   {path: 'thankyou', component: ThankyouComponent},
   {path: 'wishlist', component: WishlistComponent},
-  {path: 'filter', component: FilterComponent}
+  {path: 'filter', component: FilterComponent},
+  {path: 'categories', component: CategoriesComponent}
 ];
 
 @NgModule({
