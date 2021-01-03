@@ -14,10 +14,23 @@ export class FilterComponent implements OnInit {
   category: string;
   name: string;
   filteredProducts: ProductModelServer[];
+  products: ProductModelServer[];
 
   constructor(private router: Router,
               private productService: ProductService,
               public  homeService: HomeService) {
+    router.events.subscribe(value => {
+      if (router.url === '/filter') {
+        this.filterProducts();
+        this.getAllProducts();
+      }
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+  initRouter(): void {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation.extras.state as {
       category: string;
@@ -25,13 +38,20 @@ export class FilterComponent implements OnInit {
     };
     this.category = state.category;
     this.name = state.productName;
-    this.filterProducts();
   }
 
-  ngOnInit(): void {
+  getTopSales(id: number): ProductModelServer[] {
+    if (id === 0) {
+      return this.products.slice(0, 4);
+    } else if (id === 1) {
+      return  this.products.slice(4, 8);
+    } else {
+      return this.products.slice(8, 12);
+    }
   }
 
   filterProducts(): void {
+    this.initRouter();
     if (this.category === 'All' && !this.name) {
       this.productService.getAllProducts().toPromise().then((data: ProductModelServer[]) => this.filteredProducts = data);
       return;
@@ -53,5 +73,9 @@ export class FilterComponent implements OnInit {
       this.filteredProducts = data;
       this.filteredProducts = this.filteredProducts.filter((product: ProductModelServer) => product.category.name === this.category);
     });
+  }
+
+  private getAllProducts() {
+    this.productService.getAllProducts().toPromise().then((data: ProductModelServer[]) => this.products = data);
   }
 }

@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
     public homeService: HomeService,
     private router: Router
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,6 +28,16 @@ export class HomeComponent implements OnInit {
         this.products = response;
       }
     );
+  }
+
+  getTopSales(id: number) {
+    if (id === 0) {
+      return this.products.slice(0, 4);
+    } else if (id === 1) {
+      return this.products.slice(4, 8);
+    } else {
+      return this.products.slice(8, 12);
+    }
   }
 
   filterCategory(categ: string) {
