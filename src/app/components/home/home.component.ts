@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    public homeService: HomeService
+    public homeService: HomeService,
+    private router: Router
     ) {
   }
 
@@ -28,4 +29,15 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  filterCategory(categ: string) {
+    const category = categ;
+    this.router.navigate(['/filter'], {
+      state: {
+        category,
+        productName: undefined
+      }
+    });
+  }
+
 }

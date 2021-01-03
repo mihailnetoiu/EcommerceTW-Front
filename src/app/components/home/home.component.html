@@ -12,7 +12,7 @@
           </div>
           <div class="shop-body">
             <h3>Laptop<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('LAPTOP')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
           </div>
           <div class="shop-body">
             <h3>Accessories<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('ACCESSORIES')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
           </div>
           <div class="shop-body">
             <h3>PC<br>Collection</h3>
-            <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('PC')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -99,7 +99,6 @@
                     <i *ngIf="!homeService.wishlistService.checkProductInWishlist(p.id)" class="fa fa-heart-o"></i>
                     <i *ngIf="homeService.wishlistService.checkProductInWishlist(p.id)" class="fa fa-heart"></i><span
                     class="tooltipp">add to wishlist</span></button>
-                  <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                 </div>
               </div>
               <div class="add-to-cart">
