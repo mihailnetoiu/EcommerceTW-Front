@@ -29,5 +29,9 @@ export class ProductService {
     return this.http.post<ProductModelServer[]>(this.SERVER_URL + '/product/filter', filter);
   }
 
+  getProductsByName(name: string): Observable<ProductModelServer[]> {
+    return this.http.get<ProductModelServer[]>(this.SERVER_URL + `/product/filter/${name}`);
+  }
+
 
 }

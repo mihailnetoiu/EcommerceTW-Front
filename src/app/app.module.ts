@@ -15,6 +15,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ToastrModule} from 'ngx-toastr';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { FilterComponent } from './components/filter/filter.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,16 +28,18 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
     HomeComponent,
     ProductComponent,
     ThankyouComponent,
-    WishlistComponent
+    WishlistComponent,
+    FilterComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgxSpinnerModule,
-    ToastrModule.forRoot()
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        NgxSpinnerModule,
+        ToastrModule.forRoot(),
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

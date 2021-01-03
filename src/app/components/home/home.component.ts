@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {ProductModelServer} from '../../models/product.model';
 import {CartService} from '../../services/cart.service';
 import {WishlistService} from '../../services/wishlist.service';
+import {HomeService} from '../../services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -16,29 +17,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    public wishlistService: WishlistService,
-    private router: Router,
-    private cartService: CartService) {
+    public homeService: HomeService
+    ) {
   }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(
       (response: ProductModelServer[]) => {
-        console.log(response);
         this.products = response;
       }
     );
-  }
-
-  selectProduct(id) {
-    this.router.navigate(['/product', id]).then();
-  }
-
-  addToCart(id: number) {
-    this.cartService.addProductToCart(id);
-  }
-
-  addToWishlist(id: number) {
-    this.wishlistService.addToWishlist(id);
   }
 }

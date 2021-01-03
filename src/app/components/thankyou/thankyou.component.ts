@@ -11,8 +11,7 @@ export class ThankyouComponent implements OnInit {
   message: string;
   cartTotal: number;
 
-  constructor(private router: Router,
-              private historyService: HistoryService) {
+  constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation.extras.state as {
       message: string;
