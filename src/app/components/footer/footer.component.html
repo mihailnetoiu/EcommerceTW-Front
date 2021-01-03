@@ -11,9 +11,9 @@
             <h3 class="footer-title">About Us</h3>
             <p>Over the past years, we gained the trust of our clients. Join us in our mission!</p>
             <ul class="footer-links">
-              <li><a href="#"><i class="fa fa-map-marker"></i>Timisoara</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i>+40770000000</a></li>
-              <li><a href="#"><i class="fa fa-envelope-o"></i>computersystem@email.com</a></li>
+              <li><a href="https://www.google.ro/maps/place/Timi%C8%99oara/@45.7410432,21.14655,12z/" style="font-size: 14px"><i class="fa fa-map-marker"></i>Timisoara</a></li>
+              <li><a href="#" style="font-size: 14px"><i class="fa fa-phone"></i>+40770000000</a></li>
+              <li><a href="#" style="font-size: 14px"><i class="fa fa-envelope-o"></i>computersystem@email.com</a></li>
             </ul>
           </div>
         </div>
@@ -22,9 +22,9 @@
           <div class="footer">
             <h3 class="footer-title">Categories</h3>
             <ul class="footer-links">
-              <li><a href="#">Laptops</a></li>
-              <li><a href="#">PC</a></li>
-              <li><a href="#">Accessories</a></li>
+              <li><button class="btn" style="color: lightgrey" (click)="this.filterCategory('LAPTOP')">Laptops</button></li>
+              <li><button class="btn" style="color: lightgrey" (click)="this.filterCategory('ACCESSORIES')">Accessories</button></li>
+              <li><button class="btn" style="color: lightgrey" (click)="this.filterCategory('PC')">PC</button></li>
             </ul>
           </div>
         </div>
@@ -35,9 +35,7 @@
           <div class="footer">
             <h3 class="footer-title">Information</h3>
             <ul class="footer-links">
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Orders and Returns</a></li>
-              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="/contact">Contact Us</a></li>
             </ul>
           </div>
         </div>
@@ -46,9 +44,8 @@
           <div class="footer">
             <h3 class="footer-title">Service</h3>
             <ul class="footer-links">
-              <li><a href="#">My Account</a></li>
-              <li><a href="#">View Cart</a></li>
-              <li><a href="#">Wishlist</a></li>
+              <li><a href="/cart">View Cart</a></li>
+              <li><a href="/wishlist">Wishlist</a></li>
             </ul>
           </div>
         </div>

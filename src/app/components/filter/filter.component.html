@@ -8,8 +8,8 @@
       <!-- section title -->
       <div class="col-md-12">
         <div class="section-title">
-          <h3 *ngIf="filteredProducts.length" class="title">Our Products</h3>
-          <h3 *ngIf="!filteredProducts.length" class="title">There is no product that matches your conditions</h3>
+          <h3 *ngIf="filteredProducts?.length" class="title">Our Products</h3>
+          <h3 *ngIf="!filteredProducts?.length" class="title">There is no product that matches your conditions</h3>
         </div>
       </div>
       <!-- /section title -->

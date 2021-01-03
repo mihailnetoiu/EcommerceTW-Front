@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -7,10 +8,20 @@ import {Component, OnInit} from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
+  filterCategory(categ: string) {
+    const category = categ;
+    this.router.navigate(['/filter'], {
+      state: {
+        category,
+        productName: undefined
+      }
+    });
+    window.scrollTo(0, 0);
+  }
 }

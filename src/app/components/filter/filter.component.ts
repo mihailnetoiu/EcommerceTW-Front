@@ -32,7 +32,6 @@ export class FilterComponent implements OnInit {
   }
 
   filterProducts(): void {
-    console.log(this.name);
     if (this.category === 'All' && !this.name) {
       this.productService.getAllProducts().toPromise().then((data: ProductModelServer[]) => this.filteredProducts = data);
       return;

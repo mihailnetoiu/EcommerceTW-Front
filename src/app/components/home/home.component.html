@@ -75,7 +75,7 @@
             <div class="product">
               <div class="product-img">
                 <img [src]="p.photo" alt="{{p.name}}" width="200px" class="card-img-top" style="cursor: pointer;" (click)="homeService.selectProduct(p.id)">
-                <div class="product-label">
+                <div *ngIf="p.sale" class="product-label">
                   <span class="sale">{{p.sale}}%</span>
                 </div>
               </div>
