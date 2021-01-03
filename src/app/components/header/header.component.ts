@@ -3,7 +3,6 @@ import {CartModelServer} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
 import {WishlistService} from '../../services/wishlist.service';
 import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',

@@ -18,6 +18,17 @@ export class FilterComponent implements OnInit {
   constructor(private router: Router,
               private productService: ProductService,
               public  homeService: HomeService) {
+    router.events.subscribe(value => {
+      if (router.url === '/filter') {
+        this.filterProducts();
+      }
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+  initRouter(): void {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation.extras.state as {
       category: string;
@@ -25,13 +36,10 @@ export class FilterComponent implements OnInit {
     };
     this.category = state.category;
     this.name = state.productName;
-    this.filterProducts();
-  }
-
-  ngOnInit(): void {
   }
 
   filterProducts(): void {
+    this.initRouter();
     if (this.category === 'All' && !this.name) {
       this.productService.getAllProducts().toPromise().then((data: ProductModelServer[]) => this.filteredProducts = data);
       return;
