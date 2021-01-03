@@ -12,7 +12,8 @@
           </div>
           <div class="shop-body">
             <h3>Laptop<br>Collection</h3>
-            <button type="button" class="btn btn-dark" (click)="this.filterCategory('LAPTOP')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('LAPTOP')">Shop now <i
+              class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -26,7 +27,8 @@
           </div>
           <div class="shop-body">
             <h3>Accessories<br>Collection</h3>
-            <button type="button" class="btn btn-dark" (click)="this.filterCategory('ACCESSORIES')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('ACCESSORIES')">Shop now <i
+              class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -40,7 +42,8 @@
           </div>
           <div class="shop-body">
             <h3>PC<br>Collection</h3>
-            <button type="button" class="btn btn-dark" (click)="this.filterCategory('PC')">Shop now <i class="fa fa-arrow-circle-right"></i></button>
+            <button type="button" class="btn btn-dark" (click)="this.filterCategory('PC')">Shop now <i
+              class="fa fa-arrow-circle-right"></i></button>
           </div>
         </div>
       </div>
@@ -74,7 +77,8 @@
             <!-- product -->
             <div class="product">
               <div class="product-img">
-                <img [src]="p.photo" alt="{{p.name}}" width="200px" class="card-img-top" style="cursor: pointer;" (click)="homeService.selectProduct(p.id)">
+                <img [src]="p.photo" alt="{{p.name}}" width="200px" class="card-img-top" style="cursor: pointer;"
+                     (click)="homeService.selectProduct(p.id)">
                 <div *ngIf="p.sale" class="product-label">
                   <span class="sale">{{p.sale}}%</span>
                 </div>
@@ -82,7 +86,7 @@
               <div class="product-body">
                 <p class="product-category">{{p.category.name}}</p>
                 <h3 class="product-name">{{p.name | titlecase}}</h3>
-                <h4 class="product-price">{{p.price - p.price * p.sale/100 | currency: 'EUR'}}
+                <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
                   <del *ngIf="p.sale" class="product-old-price">{{p.price | currency : 'EUR'}}</del>
                 </h4>
                 <div class="card-body">
@@ -103,10 +107,12 @@
               </div>
               <div class="add-to-cart">
                 <button class="add-to-cart-btn"
-                [class.disabled]="p.quantity < 1"
-                (click)="homeService.addToCart(p.id)">
+                        [class.disabled]="p.quantity < 1"
+                        (click)="homeService.addToCart(p.id)">
                   <i *ngIf="!p.quantity" class="fa fa-times-circle"></i>
-                  <i *ngIf="p.quantity" class="fa fa-shopping-cart"></i>{{p.quantity < 1 ? "Insufficient stocks" : "Add to cart!"}}</button>
+                  <i *ngIf="p.quantity"
+                     class="fa fa-shopping-cart"></i>{{p.quantity < 1 ? "Insufficient stocks" : "Add to cart!"}}
+                </button>
               </div>
             </div>
           </div>
@@ -135,98 +141,21 @@
         </div>
 
         <div class="products-widget-slick" data-nav="#slick-nav-3">
-          <div>
+          <div *ngFor="let p of this.getTopSales(0)">
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="/assets/img/product07.png" alt="">
+                <img src="{{p.photo}}" alt="{{p.name}}">
               </div>
               <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
+                <p class="product-category">{{p.category.name}}</p>
+                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
+                  <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>
               </div>
             </div>
             <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product08.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product09.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
-          </div>
-
-          <div>
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product01.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product02.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product03.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
           </div>
         </div>
       </div>
@@ -240,98 +169,21 @@
         </div>
 
         <div class="products-widget-slick" data-nav="#slick-nav-4">
-          <div>
+          <div *ngFor="let p of this.getTopSales(1)">
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="/assets/img/product04.png" alt="">
+                <img src="{{p.photo}}" alt="{{p.name}}">
               </div>
               <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
+                <p class="product-category">{{p.category.name}}</p>
+                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
+                  <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>
               </div>
             </div>
             <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product05.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product06.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
-          </div>
-
-          <div>
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product07.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product08.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product09.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
           </div>
         </div>
       </div>
@@ -347,98 +199,21 @@
         </div>
 
         <div class="products-widget-slick" data-nav="#slick-nav-5">
-          <div>
+          <div *ngFor="let p of this.getTopSales(2)">
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="/assets/img/product01.png" alt="">
+                <img src="{{p.photo}}" alt="{{p.name}}">
               </div>
               <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
+                <p class="product-category">{{p.category.name}}</p>
+                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
+                  <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>
               </div>
             </div>
             <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product02.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product03.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
-          </div>
-
-          <div>
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product04.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product05.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- /product widget -->
-
-            <!-- product widget -->
-            <div class="product-widget">
-              <div class="product-img">
-                <img src="/assets/img/product06.png" alt="">
-              </div>
-              <div class="product-body">
-                <p class="product-category">Category</p>
-                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                <h4 class="product-price">$980.00
-                  <del class="product-old-price">$990.00</del>
-                </h4>
-              </div>
-            </div>
-            <!-- product widget -->
           </div>
         </div>
       </div>

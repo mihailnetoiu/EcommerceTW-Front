@@ -14,6 +14,7 @@ export class FilterComponent implements OnInit {
   category: string;
   name: string;
   filteredProducts: ProductModelServer[];
+  products: ProductModelServer[];
 
   constructor(private router: Router,
               private productService: ProductService,
@@ -21,6 +22,7 @@ export class FilterComponent implements OnInit {
     router.events.subscribe(value => {
       if (router.url === '/filter') {
         this.filterProducts();
+        this.getAllProducts();
       }
     });
   }
@@ -36,6 +38,16 @@ export class FilterComponent implements OnInit {
     };
     this.category = state.category;
     this.name = state.productName;
+  }
+
+  getTopSales(id: number): ProductModelServer[] {
+    if (id === 0) {
+      return this.products.slice(0, 4);
+    } else if (id === 1) {
+      return  this.products.slice(4, 8);
+    } else {
+      return this.products.slice(8, 12);
+    }
   }
 
   filterProducts(): void {
@@ -61,5 +73,9 @@ export class FilterComponent implements OnInit {
       this.filteredProducts = data;
       this.filteredProducts = this.filteredProducts.filter((product: ProductModelServer) => product.category.name === this.category);
     });
+  }
+
+  private getAllProducts() {
+    this.productService.getAllProducts().toPromise().then((data: ProductModelServer[]) => this.products = data);
   }
 }
