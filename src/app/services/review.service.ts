@@ -15,4 +15,9 @@ export class ReviewService {
   getReviewsForProduct(prodId: number){
     return this.http.get(`${this.SERVER_ULR}/review/products/${prodId}`);
   }
+
+  getCurrentDate(review: ReviewModel): string {
+    const dateArray = review.reviewDate;
+    return dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+  }
 }

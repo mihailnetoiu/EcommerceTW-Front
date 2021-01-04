@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
               private cartService: CartService,
               private route: ActivatedRoute,
               private router: Router,
-              private reviewService: ReviewService) {
+              public  reviewService: ReviewService) {
   }
 
   ngOnInit(): void {

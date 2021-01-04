@@ -145,11 +145,11 @@
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="{{p.photo}}" alt="{{p.name}}">
+                <img src="{{p.photo}}" alt="{{p.name}}" style="cursor: pointer;" (click)="homeService.selectProduct(p.id)">
               </div>
               <div class="product-body">
                 <p class="product-category">{{p.category.name}}</p>
-                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h3 class="product-name">{{p.name}}</h3>
                 <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
                   <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>
@@ -173,11 +173,11 @@
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="{{p.photo}}" alt="{{p.name}}">
+                <img src="{{p.photo}}" alt="{{p.name}}" style="cursor: pointer;" (click)="homeService.selectProduct(p.id)">
               </div>
               <div class="product-body">
                 <p class="product-category">{{p.category.name}}</p>
-                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h3 class="product-name">{{p.name}}</h3>
                 <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
                   <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>
@@ -203,11 +203,11 @@
             <!-- product widget -->
             <div class="product-widget">
               <div class="product-img">
-                <img src="{{p.photo}}" alt="{{p.name}}">
+                <img src="{{p.photo}}" alt="{{p.name}}" style="cursor: pointer;" (click)="homeService.selectProduct(p.id)">
               </div>
               <div class="product-body">
                 <p class="product-category">{{p.category.name}}</p>
-                <h3 class="product-name"><a href="#">{{p.name}}</a></h3>
+                <h3 class="product-name">{{p.name}}</h3>
                 <h4 class="product-price">{{p.price - p.price * p.sale / 100 | currency: 'EUR'}}
                   <del *ngIf="p.sale" class="product-old-price">{{p.price | currency: 'EUR'}}</del>
                 </h4>

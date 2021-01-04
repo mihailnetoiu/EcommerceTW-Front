@@ -109,7 +109,6 @@
                 <div id="review-form">
                   <form class="review-form">
                     <input class="input" type="text" placeholder="Your Name">
-                    <input class="input" type="email" placeholder="Your Email">
                     <textarea class="input" placeholder="Your Review"></textarea>
                     <div class="input-rating">
                       <span>Your Rating: </span>
@@ -199,55 +198,17 @@
           <div class="col-md-6">
             <div id="reviews">
               <ul class="reviews">
-                <li>
+                <li *ngFor="let r of reviewList">
                   <div class="review-heading">
-                    <h5 class="name">John</h5>
-                    <p class="date">27 DEC 2018, 8:0 PM</p>
+                    <h5 class="name">Admin</h5>
+                    <p class="date">{{this.reviewService.getCurrentDate(r)}}</p>
                     <div class="review-rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star-o empty"></i>
+                      <span *ngFor="let n of [].constructor(r?.review);"><i class="fa fa-star"></i></span>
+                      <span *ngFor="let s of [].constructor(5-r?.review);"><i class="fa fa-star-o"></i></span>
                     </div>
                   </div>
                   <div class="review-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                      ut labore et dolore magna aliqua</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="review-heading">
-                    <h5 class="name">John</h5>
-                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                    <div class="review-rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star-o empty"></i>
-                    </div>
-                  </div>
-                  <div class="review-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                      ut labore et dolore magna aliqua</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="review-heading">
-                    <h5 class="name">John</h5>
-                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                    <div class="review-rating">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star-o empty"></i>
-                    </div>
-                  </div>
-                  <div class="review-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                      ut labore et dolore magna aliqua</p>
+                    <p>{{r.comment}}</p>
                   </div>
                 </li>
               </ul>
