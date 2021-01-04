@@ -5,6 +5,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {ProductModelServer} from '../../models/product.model';
 import {WishlistService} from '../../services/wishlist.service';
+import {ReviewService} from '../../services/review.service';
+import {ReviewModel} from '../../models/review.model';
 
 declare let $: any;
 
@@ -16,13 +18,15 @@ declare let $: any;
 export class ProductComponent implements OnInit, AfterViewInit {
   id: number;
   product: ProductModelServer;
+  reviewList: ReviewModel[];
   @ViewChild('quantity') quantityInput;
 
   constructor(private productService: ProductService,
               private wishlistService: WishlistService,
               private cartService: CartService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private reviewService: ReviewService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +40,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
       this.productService.getSingleProduct(this.id).subscribe(prod => {
         this.product = prod;
       });
+      this.reviewService.getReviewsForProduct(this.id).toPromise().then((result: ReviewModel[]) => this.reviewList = result);
     });
     document.getElementById('defaultOpen').click();
   }
@@ -131,9 +136,9 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   calculateAvgRating(product: ProductModelServer) {
     let averageRating = 0;
-    const numOfReviews = product.reviewList.length;
+    const numOfReviews = this.reviewList.length;
 
-    for (const reviewItem of product.reviewList) {
+    for (const reviewItem of this.reviewList) {
       averageRating += reviewItem.review;
     }
 
@@ -145,13 +150,12 @@ export class ProductComponent implements OnInit, AfterViewInit {
     let rating = 0;
 
     if (stars > 0 && stars < 6) {
-      for (const reviewItem of product.reviewList) {
-        if (reviewItem.review.stars === stars) {
+      for (const reviewItem of this.reviewList) {
+        if (reviewItem.review === stars) {
           ++rating;
         }
       }
     }
-
     // tslint:disable-next-line:radix
     return parseInt(rating.toFixed());
   }

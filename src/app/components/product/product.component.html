@@ -41,7 +41,7 @@
               <span *ngFor="let n of [].constructor(product?.stars);"><i class="fa fa-star"></i> </span>
               <span *ngFor="let s of [].constructor(5-product?.stars);"><i class="fa fa-star-o"></i> </span>
             </div>
-            <a class="review-link" href="#">{{product?.reviewList.length}} Review(s) | Add your review</a>
+            <a class="review-link" href="#">{{this?.reviewList.length}} Review(s) | Add your review</a>
           </div>
           <div>
             <h3 class="product-price">{{product?.price - product?.price * product?.sale / 100 | currency: 'EUR'}}
@@ -65,7 +65,6 @@
 
           <ul class="product-btns">
             <li><button class="btn btn-warning justify-content-between" (click)="addToWishlist(product?.id)"><i class="fa fa-heart-o"></i> add to wishlist</button></li>
-<!--            <li><a href=""><i class="fa fa-heart-o"></i> add to wishlist</a></li>-->
           </ul>
 
           <ul class="product-links">
@@ -81,7 +80,6 @@
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
           </ul>
-
         </div>
       </div>
       <!-- /Product details -->
