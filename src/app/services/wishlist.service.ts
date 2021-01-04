@@ -18,7 +18,6 @@ export class WishlistService {
 
   constructor(private http: HttpClient,
               private productService: ProductService) {
-    // TODO modify for current user
     let wishlistArray: ProductModelServer[];
     this.http.get(`${this.SERVER_URL}/wishlist/1`).toPromise().then((result: ProductModelServer[]) => {
       wishlistArray = result;
@@ -29,7 +28,6 @@ export class WishlistService {
     });
   }
 
-  // TODO FIX FOR USER LOGIN
   addToWishlist(productId): void {
     this.http.post(`${this.SERVER_URL}/wishlist/1/${productId}`, null).toPromise().then();
     let currentProduct: ProductModelServer;

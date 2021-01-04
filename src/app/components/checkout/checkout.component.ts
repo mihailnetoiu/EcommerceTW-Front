@@ -36,7 +36,6 @@ export class CheckoutComponent implements OnInit {
   onCheckout() {
     this.spinner.show();
     this.timeoutPromise(5).then(() => this.spinner.hide());
-    // TODO: replace hardcoded user id with one from login
     this.cartService.checkoutFromCart(1);
   }
 }
